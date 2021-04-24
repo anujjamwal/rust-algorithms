@@ -51,33 +51,26 @@ pub fn merge_sort<T: PartialOrd>(mut v: Vec<T>) -> Vec<T> {
 }
 
 pub fn quick_sort<T: PartialOrd>(v: &mut [T]) {
-  qsort(v, 0, v.len() as i32);
-}
-
-fn qsort<T: PartialOrd>(v: &mut [T], s: i32, e: i32) {
-  if s >= e {
+  if v.len() == 0 {
     return;
   }
-  let pivot = partition(v, s as usize, e as usize) as i32;
-  qsort(v, s, pivot);
-  qsort(v, pivot + 1, e);
+
+  let pivot = partition(v);
+  quick_sort(&mut v[0..pivot]);
+  quick_sort(&mut v[pivot + 1..]);
 }
 
-fn partition<T: PartialOrd>(v: &mut [T], s: usize, e: usize) -> usize {
-  if v.len() < 1 {
-    panic!("Empty List cannot be partitioned");
-  }
+fn partition<T: PartialOrd>(v: &mut [T]) -> usize {
+  let mut loc = 0;
 
-  let mut loc = s;
-
-  for i in s..e {
-    if v[i] < v[s] {
+  for i in 1..v.len() {
+    if v[i] < v[0] {
       loc += 1;
       v.swap(i, loc);
     }
   }
 
-  v.swap(s, loc);
+  v.swap(0, loc);
   loc
 }
 
@@ -129,7 +122,7 @@ mod tests {
   fn test_partition_to_move_smallest_element() {
     let mut input = vec![1, 10, 4, 5, 6, 19, 3];
     let len = input.len();
-    let res = partition(&mut input, 0, len);
+    let res = partition(&mut input);
     assert_eq!(res, 0);
   }
 
@@ -137,7 +130,7 @@ mod tests {
   fn test_partition_to_move_largest_element() {
     let mut input = vec![51, 10, 4, 5, 6, 19, 3];
     let len = input.len();
-    let res = partition(&mut input, 0, len);
+    let res = partition(&mut input);
     assert_eq!(res, 6);
   }
 
