@@ -121,7 +121,6 @@ mod tests {
   #[test]
   fn test_partition_to_move_smallest_element() {
     let mut input = vec![1, 10, 4, 5, 6, 19, 3];
-    let len = input.len();
     let res = partition(&mut input);
     assert_eq!(res, 0);
   }
@@ -129,7 +128,6 @@ mod tests {
   #[test]
   fn test_partition_to_move_largest_element() {
     let mut input = vec![51, 10, 4, 5, 6, 19, 3];
-    let len = input.len();
     let res = partition(&mut input);
     assert_eq!(res, 6);
   }
