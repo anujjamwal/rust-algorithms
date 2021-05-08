@@ -1,4 +1,5 @@
 mod fundamentals;
+mod spoj;
 
 #[cfg(test)]
 mod tests {
